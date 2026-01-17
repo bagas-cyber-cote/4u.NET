@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>WiFi Hotspot Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- Logo Above Login Box -->
+    <div class="logo-above-login">
+        <!-- Letakkan logo Anda di sini -->
+        <img src="images/4uNET.png" alt="Hamzanwadi" class="logo-img-above">
+    </div>
+
+    <!-- Login Section -->
+    <div class="login-section">
+        <div class="login-box">
+            <h3>LOGIN WOK</h3>
+            <div class="login-subtitle-container">
+                <p class="login-subtitle">INTERNET CEPAT RAMAH DI KANTONG!</p>
+            </div>
+            
+
+
+            <!-- Login Tab -->
+            <div class="login-tabs">
+                <button class="tab-btn active" onclick="switchTab('subscription')">
+                    <i class="fas fa-user-tie"></i> Membership
+                </button>
+                <button class="tab-btn" onclick="switchTab('voucher')">
+                    <i class="fas fa-ticket-alt"></i> Voucher
+                </button>
+            </div>
+
+            <!-- Form Berlangganan -->
+            <div id="subscription-form" class="login-form active">
+                <div class="form-group">
+                    <label for="sub-username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="sub-username" placeholder="Masukkan username Anda" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sub-password"><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="sub-password" placeholder="Masukkan password Anda" required>
+                </div>
+
+                <div id="subscription-error" class="error-notification">Password atau username salah</div>
+
+                <div id="subscription-expiry-notification" class="error-notification" style="display: none;">Membership Anda telah expired. Silakan perpanjang.</div>
+
+                <button onclick="handleLogin('subscription')" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+
+                <!-- Hamburger Menu for Membership Prices -->
+                <div class="hamburger-menu-below-login">
+                    <button class="hamburger-btn" onclick="toggleMembershipTable()">
+                        <i class="fas fa-bars"></i> Lihat Harga Membership
+                    </button>
+                    <div id="membership-table-container" class="price-table-container" style="display: none;">
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>Paket</th>
+                                    <th>Kecepatan</th>
+                                    <th>Harga/Tahun</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Standar</strong></td>
+                                    <td><strong>10 Mbps</strong></td>
+                                    <td class="price">Rp 180.000</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Super</strong></td>
+                                    <td><strong>25 Mbps</strong></td>
+                                    <td class="price">Rp 300.000</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Premium</strong></td>
+                                    <td><strong>50 Mbps</strong></td>
+                                    <td class="price">Rp 450.000</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ultra</strong></td>
+                                    <td><strong>100 Mbps</strong></td>
+                                    <td class="price">Rp 750.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Voucher -->
+            <div id="voucher-form" class="login-form">
+                <div class="form-group">
+                    <label for="voucher-code"><i class="fas fa-ticket-alt"></i> Kode Voucher</label>
+                    <input type="text" id="voucher-code" placeholder="Masukkan kode voucher Anda" required>
+                </div>
+
+                <div id="voucher-error" class="error-notification">Kode voucher salah</div>
+
+                <div id="voucher-expiry-notification" class="error-notification" style="display: none;">Voucher Anda telah expired. Silakan beli voucher baru.</div>
+
+                <button onclick="handleLogin('voucher')" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+
+                <!-- Hamburger Menu for Voucher Prices -->
+                <div class="hamburger-menu-below-login">
+                    <button class="hamburger-btn" onclick="toggleVoucherTable()">
+                        <i class="fas fa-bars"></i> Lihat Harga Voucher
+                    </button>
+                    <div id="voucher-table-container" class="price-table-container" style="display: none;">
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>Durasi</th>
+                                    <th>Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>10 Jam</strong></td>
+                                    <td class="price">Rp 2.000</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>2 Hari</strong></td>
+                                    <td class="price">Rp 5.000</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>1 Minggu</strong></td>
+                                    <td class="price">Rp 15.000</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>1 Bulan</strong></td>
+                                    <td class="price">Rp 35.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Payment Methods -->
+            <div class="payment-methods">
+                <h4><i class="fas fa-credit-card"></i> Metode Pembayaran</h4>
+                <div class="payment-icons">
+                    <img src="images/dana.png" alt="Dana" class="payment-icon">
+                    <img src="images/ovo.jpeg" alt="OVO" class="payment-icon">
+                    <img src="images/qris.png" alt="Qris" class="payment-icon">
+                    <!-- Add more payment method images as needed -->
+                </div>
+            </div>
+
+            <div class="login-footer">
+                <p>Belum punya voucher atau mau berlangganan? <a href="https://wa.me/+6287759255481" target="_blank">Hubungi Kami</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Kelompok 4 Hotspot | Semua hak dilindungi kelompok 4 | <a href="#">Kebijakan Privasi</a> | <a href="#">Syarat & Ketentuan</a></p>
+    </footer>
+</div>
+
+<script src="login.js"></script>
+
+</body>
+</html>
