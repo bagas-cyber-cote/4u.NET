@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Koneksi WiFi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- Logo Above Login Box -->
+    <div class="logo-above-login">
+        <!-- Letakkan logo Anda di sini -->
+        <h1 style="color: #f5f1de; font-size: 32px; margin: 0;">WiFi Hotspot</h1>
+    </div>
+    <div class="success-container">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h2>Berhasil Terhubung</h2>
+        <p class="success-message">Anda sudah terhubung ke Wifi Hotspot dengan aman.</p>
+        
+        <div class="status-info">
+            <div class="info-item">
+                <label>Status:</label>
+                <span class="status-connected">
+                    <i class="fas fa-wifi"></i> Terhubung
+                </span>
+            </div>
+            <div class="info-item">
+                <label>Username / Voucher:</label>
+                <span class="username-display" id="displayUsername">-</span>
+            </div>
+            <div class="info-item">
+                <label>Paket:</label>
+                <span class="package-display" id="displayPackage">-</span>
+            </div>
+            <div class="info-item">
+                <label>Durasi:</label>
+                <span class="duration-display" id="displayDuration">-</span>
+            </div>
+            <div class="info-item">
+                <label>Waktu Login:</label>
+                <span id="displayLoginTime">-</span>
+            </div>
+            <div class="info-item">
+                <label>IP Address:</label>
+                <span id="displayIP">-</span>
+            </div>
+            <div class="info-item">
+                <label>MAC Address:</label>
+                <span id="displayMAC">-</span>
+            </div>
+        </div>
+
+        <div class="connection-stats">
+            <div class="stat">
+                <i class="fas fa-signal"></i>
+                <span>Sinyal Kuat</span>
+            </div>
+            <div class="stat">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Kecepatan Normal</span>
+            </div>
+            <div class="stat">
+                <i class="fas fa-lock"></i>
+                <span>Aman & Terenkripsi</span>
+            </div>
+        </div>
+
+        <div class="status-actions">
+            <a href="logout.html" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+            <a href="login.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Kelompok 4 Hotspot | Semua hak dilindungi kelompok 4 | <a href="#">Kebijakan Privasi</a> | <a href="#">Syarat & Ketentuan</a></p>
+    </footer>
+</div>
+
+<script>
+// Mikrotik Status Handler
+function updateStatus() {
+    // Get Mikrotik status information from URL parameters or cookies
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username') || getCookie('mtu') || 'Guest';
+    const sessionTimeLeft = urlParams.get('session-time-left') || 'Unknown';
+    const bytesUp = urlParams.get('bytes-up') || '0';
+    const bytesDown = urlParams.get('bytes-down') || '0';
+    const ip = urlParams.get('ip') || 'Unknown';
+    const mac = urlParams.get('mac') || 'Unknown';
+
+    // Format data for display
+    let formattedUsername = username;
+    let formattedPackage = 'Connected';
+    let formattedDuration = sessionTimeLeft !== 'Unknown' ? formatTime(sessionTimeLeft) : 'Active';
+    let formattedLoginTime = new Date().toLocaleString();
+
+    // Display data
+    document.getElementById('displayUsername').textContent = formattedUsername;
+    document.getElementById('displayPackage').textContent = formattedPackage;
+    document.getElementById('displayDuration').textContent = formattedDuration;
+    document.getElementById('displayLoginTime').textContent = formattedLoginTime;
+    document.getElementById('displayIP').textContent = ip;
+    document.getElementById('displayMAC').textContent = mac;
+
+    // Update connection stats if available
+    if (bytesUp !== '0' || bytesDown !== '0') {
+        updateConnectionStats(bytesUp, bytesDown);
+    }
+}
+
+function formatTime(seconds) {
+    if (seconds === 'Unknown') return 'Active';
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+
+    if (hours > 0) {
+        return `${hours}h ${minutes}m ${secs}s`;
+    } else if (minutes > 0) {
+        return `${minutes}m ${secs}s`;
+    } else {
+        return `${secs}s`;
+    }
+}
+
+function updateConnectionStats(bytesUp, bytesDown) {
+    const upMB = (parseInt(bytesUp) / (1024 * 1024)).toFixed(2);
+    const downMB = (parseInt(bytesDown) / (1024 * 1024)).toFixed(2);
+
+    // Update stats display if elements exist
+    const statsContainer = document.querySelector('.connection-stats');
+    if (statsContainer) {
+        statsContainer.innerHTML = `
+            <div class="stat">
+                <i class="fas fa-arrow-up"></i>
+                <span>${upMB} MB Up</span>
+            </div>
+            <div class="stat">
+                <i class="fas fa-arrow-down"></i>
+                <span>${downMB} MB Down</span>
+            </div>
+            <div class="stat">
+                <i class="fas fa-lock"></i>
+                <span>Aman & Terenkripsi</span>
+            </div>
+        `;
+    }
+}
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
+// Initialize status on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateStatus();
+
+    // Refresh status every 30 seconds
+    setInterval(updateStatus, 30000);
+});
+</script>
+
+</body>
+</html>

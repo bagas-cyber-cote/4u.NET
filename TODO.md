@@ -1,0 +1,1 @@
+- [x] Update .login-subtitle in style.css: change animation duration from 10s to 15s, add purple color (#764ba2), bold font-weight, and add a box line (border) around the text.

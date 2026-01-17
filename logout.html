@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout WiFi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- Logo Above Login Box -->
+    <div class="logo-above-login">
+        <h1 style="color: #f5f1de; font-size: 32px; margin: 0;">WiFi Hotspot</h1>
+    </div>
+
+    <!-- Logout Section -->
+    <div class="logout-section">
+        <div class="logout-box">
+            <div class="logout-success-animation">
+                <div class="logout-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="success-ring"></div>
+            </div>
+
+            <h2>Logout Berhasil!</h2>
+            <p class="logout-message">Anda telah berhasil logout dari WiFi Hotspot.</p>
+            <p class="logout-subtitle">Terima kasih telah menggunakan layanan kami. Sampai jumpa lagi!</p>
+
+            <!-- Fun Stats or Message -->
+            <div class="logout-stats">
+                <div class="stat-item">
+                    <i class="fas fa-wifi"></i>
+                    <span>Koneksi Terputus</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Sesi Aman</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Siap Login Kembali</span>
+                </div>
+            </div>
+
+            <div class="logout-actions">
+                <a href="login.html" class="login-again-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login Lagi
+                </a>
+                <a href="https://wa.me/+6287759255481" target="_blank" class="contact-btn">
+                    <i class="fab fa-whatsapp"></i> Hubungi Kami
+                </a>
+            </div>
+
+            <!-- Motivational Quote -->
+            <div class="motivational-quote">
+                <p>"Koneksi yang baik dimulai dengan langkah yang tepat"</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Kelompok 4 Hotspot | Semua hak dilindungi kelompok 4 | <a href="#">Kebijakan Privasi</a> | <a href="#">Syarat & Ketentuan</a></p>
+    </footer>
+</div>
+
+<script>
+// Clear localStorage for local cleanup
+localStorage.removeItem('username');
+localStorage.removeItem('duration');
+localStorage.removeItem('package');
+localStorage.removeItem('loginTime');
+
+// Note: Logout functionality is handled by the server. This page displays the logout confirmation.
+</script>
+
+</body>
+</html>

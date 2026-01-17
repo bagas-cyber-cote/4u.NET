@@ -1,0 +1,20 @@
+=== AKUN TEST UNTUK HALAMAN LOGIN WIFI HOTSPOT ===
+
+--- Membership (Berlangganan) ---
+Username: testuser
+Password: testpass
+
+Username: premiumuser
+Password: premium123
+
+--- Voucher ---
+Kode Voucher: VOUCHER10JAM
+Kode Voucher: VOUCHER2HARI
+Kode Voucher: VOUCHER1MINGGU
+Kode Voucher: VOUCHER1BULAN
+
+--- Catatan ---
+- Akun membership dan voucher ini adalah contoh untuk testing.
+- Untuk implementasi sebenarnya, akun harus dikelola melalui Mikrotik Hotspot.
+- Notifikasi kedaluwarsa telah ditambahkan di atas tombol login untuk membership dan voucher.
+- Notifikasi akan muncul jika login gagal karena akun expired (error code 2 dari Mikrotik).

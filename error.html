@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Gagal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- Logo Above Login Box -->
+    <div class="logo-above-login">
+        <!-- Letakkan logo Anda di sini -->
+        <img src="images/Hamzanwadi.png" alt="Hamzanwadi" class="logo-img-above">
+    </div>
+    <div class="error-container">
+        <div class="error-icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h2>Login Gagal</h2>
+        <p class="error-message">Username atau password yang Anda masukkan salah.</p>
+        <p class="error-subtitle">Periksa kembali voucher atau akun Anda dan coba lagi.</p>
+        
+        <div class="error-actions">
+            <a href="login.html" class="retry-btn">
+                <i class="fas fa-redo"></i> Coba Lagi
+            </a>
+            <a href="login.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Kembali ke Login
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+// Mikrotik Error Handler
+function handleError() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const errorCode = urlParams.get('error') || urlParams.get('chap-error') || 'unknown';
+    const errorMessage = urlParams.get('error-orig') || '';
+
+    let title = 'Login Gagal';
+    let message = 'Username atau password yang Anda masukkan salah.';
+    let subtitle = 'Periksa kembali voucher atau akun Anda dan coba lagi.';
+
+    // Handle different Mikrotik error codes
+    switch(errorCode) {
+        case '1':
+        case 'chap-error=1':
+            message = 'Username atau password salah.';
+            subtitle = 'Pastikan kredensial Anda benar dan coba lagi.';
+            break;
+        case '2':
+        case 'chap-error=2':
+            // Redirect to login.html with expired parameter
+            window.location.href = 'login.html?expired=true';
+            return; // Prevent further execution
+            break;
+        case '3':
+        case 'chap-error=3':
+            message = 'Akun Anda sudah mencapai batas penggunaan.';
+            subtitle = 'Anda telah mencapai batas data atau waktu yang diizinkan.';
+            break;
+        case '4':
+        case 'chap-error=4':
+            message = 'Login dari lokasi yang tidak diizinkan.';
+            subtitle = 'Anda mencoba login dari lokasi yang diblokir.';
+            break;
+        case '5':
+        case 'chap-error=5':
+            message = 'Terlalu banyak percobaan login.';
+            subtitle = 'Anda telah mencapai batas maksimal percobaan login.';
+            break;
+        case '6':
+        case 'chap-error=6':
+            message = 'Akun Anda dinonaktifkan.';
+            subtitle = 'Akun Anda telah dinonaktifkan oleh administrator.';
+            break;
+        case '7':
+        case 'chap-error=7':
+            message = 'IP address Anda diblokir.';
+            subtitle = 'IP address Anda telah diblokir sementara.';
+            break;
+        case '8':
+        case 'chap-error=8':
+            message = 'Kesalahan konfigurasi server.';
+            subtitle = 'Terjadi kesalahan pada server. Silakan coba lagi nanti.';
+            break;
+        default:
+            if (errorMessage) {
+                message = errorMessage;
+            }
+            break;
+    }
+
+    // Update the error display
+    document.getElementById('error-title').textContent = title;
+    document.getElementById('error-message').textContent = message;
+    document.getElementById('error-subtitle').textContent = subtitle;
+}
+
+// Initialize error handling on page load
+document.addEventListener('DOMContentLoaded', function() {
+    handleError();
+});
+</script>
+
+</body>
+</html>
